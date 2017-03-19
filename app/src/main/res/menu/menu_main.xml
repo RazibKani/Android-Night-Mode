@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="info.razibkani.nightmodesample.MainActivity">
+    <item
+        android:id="@+id/action_night_mode"
+        android:checkable="true"
+        android:enabled="true"
+        android:title=""
+        app:actionLayout="@layout/item_menu_switch"
+        app:showAsAction="always" />
+
+</menu>

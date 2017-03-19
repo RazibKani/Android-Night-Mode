@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Night Mode App</string>
+    <string name="action_night_mode">Night Mode</string>
+    <string name="bookmark">Bookmark on position %d</string>
+    <string name="str_item_title">Om Telolet Om</string>
+    <string name="str_item_description">Fenomena om telolet om yang mendunia</string>
+</resources>
