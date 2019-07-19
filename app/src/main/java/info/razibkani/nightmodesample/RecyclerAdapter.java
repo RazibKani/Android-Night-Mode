@@ -1,12 +1,14 @@
 package info.razibkani.nightmodesample;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -25,22 +27,23 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         mNewsList = new ArrayList<>();
     }
 
-    public void setNewsList(ArrayList<News> newsList) {
+    void setNewsList(ArrayList<News> newsList) {
         this.mNewsList = newsList;
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+    void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.item_recycler, parent, false);
         return new ItemHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
 
         News item = mNewsList.get(position);
 
@@ -49,12 +52,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         ((ItemHolder) holder).date.setText(item.date);
 
         if (onItemClickListener != null) {
-            ((ItemHolder) holder).bookmark.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    onItemClickListener.onClick(view, position);
-                }
-            });
+            ((ItemHolder) holder).bind(onItemClickListener);
         }
     }
 
@@ -63,19 +61,31 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return mNewsList.size();
     }
 
-    static class ItemHolder extends RecyclerView.ViewHolder {
+    static class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView title;
         TextView description;
         TextView date;
         ImageView bookmark;
 
-        public ItemHolder(View itemView) {
+        OnItemClickListener mOnItemClickListener;
+
+        ItemHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.item_title);
-            description = (TextView) itemView.findViewById(R.id.item_description);
-            date = (TextView) itemView.findViewById(R.id.item_date);
-            bookmark = (ImageView) itemView.findViewById(R.id.item_bookmark);
+            title = itemView.findViewById(R.id.item_title);
+            description = itemView.findViewById(R.id.item_description);
+            date = itemView.findViewById(R.id.item_date);
+            bookmark = itemView.findViewById(R.id.item_bookmark);
+            itemView.setOnClickListener(this);
+        }
+
+        void bind(OnItemClickListener listener) {
+            mOnItemClickListener = listener;
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (mOnItemClickListener!=null) mOnItemClickListener.onClick(view, getAdapterPosition());
         }
     }
 

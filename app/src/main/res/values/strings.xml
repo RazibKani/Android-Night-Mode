@@ -4,4 +4,7 @@
     <string name="bookmark">Bookmark on position %d</string>
     <string name="str_item_title">Om Telolet Om</string>
     <string name="str_item_description">Fenomena om telolet om yang mendunia</string>
+    <string name="om_telolet_om">Om Telolet Om</string>
+    <string name="on_telolet_om">on telolet om</string>
+    <string name="time">12–12–12</string>
 </resources>
